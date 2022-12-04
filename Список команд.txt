@@ -1,0 +1,62 @@
+py manage.py shell
+from news.models import *
+
+user1 = User.objects.create_user('Иванов Иван Иванович')
+user2 = User.objects.create_user('Лев Николаевич Толстой') 
+
+Author.objects.create(authorUser=user1)
+Author.objects.create(authorUser=user2) 
+
+Category.objects.create(name_category='IT')
+Category.objects.create(name_category='PROGRAMMING')
+Category.objects.create(name_category='GAME INDUSTRY')
+Category.objects.create(name_category='GAMEDEV') 
+
+author = Author.objects.get(pk=1)
+Post.objects.create(author=author, choices='PR', heading='sometitle1', text='verybigtest1')
+Post.objects.create(author=author, choices='PR', heading='sometitle2', text='verybigtest2')
+Post.objects.create(author=author, choices='NW', heading='sometitleNEWs', text='NWtext') 
+
+Post.objects.get(pk=1).category.add(Category.objects.get(pk=1))
+Post.objects.get(pk=1).category.add(Category.objects.get(pk=2)) 
+Post.objects.get(pk=2).category.add(Category.objects.get(pk=3)) 
+Post.objects.get(pk=2).category.add(Category.objects.get(pk=4)) 
+Post.objects.get(pk=3).category.add(Category.objects.get(pk=3)) 
+
+Comment.objects.create(post=Post.objects.get(pk=1), user=User.objects.get(pk=2), comment='textsomecomment')
+Comment.objects.create(post=Post.objects.get(pk=2), user=User.objects.get(pk=2), comment='textsomecomment2') 
+Comment.objects.create(post=Post.objects.get(pk=3), user=User.objects.get(pk=2), comment='textsomecomment3')
+Comment.objects.create(post=Post.objects.get(pk=3), user=User.objects.get(pk=2), comment='textsomecomment4')  
+
+for comm in Comment.objects.all():
+     comm.like()
+     comm.dislike()
+     comm.like()
+     comm.like()
+
+for post in Post.objects.all(): 
+     post.like()
+     post.like()
+     post.like()
+     post.dislike() 
+     post.like()    
+Post.objects.get(pk=3).like()
+
+Author.objects.get(id=1).update_rating()
+Author.objects.get(id=2).update_rating() 
+
+Author.objects.all().order_by('-rating_author')[:1][0].authorUser.username
+Author.objects.all().order_by('-rating_author')[:1][0].rating_author
+
+Post.objects.all().order_by('-rating')[:1][0].datatime_of_creation.strftime('%Y-%m-%d')
+Post.objects.all().order_by('-rating')[:1][0].author.authorUser.username
+Post.objects.all().order_by('-rating')[:1][0].rating 
+Post.objects.all().order_by('-rating')[:1][0].heading
+Post.objects.all().order_by('-rating')[:1][0].preview()
+
+for i in Comment.objects.all(): 
+     i.datatime_of_creation.strftime('%Y-%m-%d')
+     i.user.username
+     i.rating
+     i.comment 
+
