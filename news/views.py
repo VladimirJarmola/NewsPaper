@@ -9,7 +9,7 @@ class PostList(ListView):
     # Указываем модель, объекты которой мы будем выводить
     model = Post
     # Поле, которое будет использоваться для сортировки объектов
-    ordering = 'datatime_of_creation'
+    ordering = '-datatime_of_creation'
     # Указываем имя шаблона, в котором будут все инструкции о том,
     # как именно пользователю должны быть показаны наши объекты
     template_name = 'posts.html'
