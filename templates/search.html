@@ -1,26 +1,26 @@
 {% extends 'flatpages/default.html' %}
 
-{% load custom_filters %}
-
 {% load custom_tags %}
 
-{% block title %}
-Posts
-{% endblock title %}
+{% load custom_filters %}
 
 {% block content %}
-   <h1>Новостей на странице</h1>
+   <h1>Поиск новостей</h1>
 
-   <h3>{{ posts|length }}</h3>
+<form action="" method="get">
+   {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+   {{ filterset.form.as_p }}
+   {# Добавим кнопку отправки данных формы #}
+   <input type="submit" value="Найти" />
+</form>
 
-   <hr>
+  <hr>
    {% if posts %}
        <table>
            <tr>
                <td>Заголовок</td>
                <td>Дата публикации</td>
                <td>Краткое описание</td>
-               <td>Тип</td>
            </tr>
 
            {% for post in posts %}
@@ -28,7 +28,6 @@ Posts
                <td>{{ post.heading|censor }}</td>
                <td>{{ post.datatime_of_creation|date:'d M Y' }}</td>
                <td>{{ post.text|truncatechars:20|censor }}</td>
-               <td>{{ post.choices }}</td>
            </tr>
            {% endfor %}
 
@@ -36,6 +35,7 @@ Posts
    {% else %}
        <h2>Новостей нет!</h2>
    {% endif %}
+
 
 {# Информация о предыдущих страницах #}
 {% if page_obj.has_previous %}
