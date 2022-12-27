@@ -13,7 +13,11 @@ Posts
 
    <h3>{{ posts|length }}</h3>
 
-   <hr>
+<hr>
+{% if perms.news.post_create %}
+<a href="{% url 'post_create'  %}"> Создать новый пост</a>
+{% endif %}
+<hr>
    {% if posts %}
        <table>
            <tr>
@@ -21,14 +25,28 @@ Posts
                <td>Дата публикации</td>
                <td>Краткое описание</td>
                <td>Тип</td>
+               <td>Действие</td>
            </tr>
 
            {% for post in posts %}
            <tr>
-               <td>{{ post.heading|censor }}</td>
+               <td> <a href="{% url 'post' pk=post.id %}">
+                   {{ post.heading|censor }}
+              </a>
+               </td>
                <td>{{ post.datatime_of_creation|date:'d M Y' }}</td>
                <td>{{ post.text|truncatechars:20|censor }}</td>
                <td>{{ post.choices }}</td>
+               <td>
+                   {% if perms.news.update_product %}
+                   <a href="{% url 'post_update' pk=post.id  %}"> Изменить</a>
+                   {% endif %}
+                   {% if perms.news.delete_product %}
+                   <a href="{% url 'post_delete' pk=post.id %}"> Удалить</a>
+                   {% endif %}
+
+               </td>
+
            </tr>
            {% endfor %}
 
