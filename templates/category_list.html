@@ -5,38 +5,32 @@
 {% load custom_tags %}
 
 {% block title %}
-Posts
+category_news_list
 {% endblock title %}
 
 {% block content %}
-   <h1>Новостей на странице</h1>
+    <h1>Новостей на странице</h1>
 
-   <h3>{{ posts|length }}</h3>
+    <h3>{{ category_news_list|length }}</h3>
+
+    {% if is_not_subscriber %}
+        <p class="text-center"><a href="{% url 'subscribe' category.id %}"
+                                  class="btn btn-secondary btn-sm">Подписаться</a></p>
+    {% endif %}
+
 
 <hr>
-{% if perms.news.add_post %}
-    {% if posts_in_limit_period %}
-        Превышен суточный лимит постов!
-    {% else %}
-        <a href="{% url 'post_create'  %}"> Создать новый пост</a>
-        <hr>
-    {% endif %}
-{% endif %}
-
-{% if posts %}
+   {% if category_news_list %}
        <table>
            <tr>
                <td>Заголовок</td>
                <td>Дата публикации</td>
                <td>Краткое описание</td>
                <td>Категория</td>
-               <td>{% if perms.news.change_post or perms.news.delete_post %}
-                        Действие
-                   {% endif %}
-               </td>
+
            </tr>
 
-           {% for post in posts %}
+           {% for post in category_news_list %}
            <tr>
                <td> <a href="{% url 'post' pk=post.id %}">
                    {{ post.heading|censor }}
@@ -50,17 +44,6 @@ Posts
                    {% endfor %}
 
                </td>
-               <td>
-                        {% if perms.news.change_post %}
-                            <a href="{% url 'post_update' pk=post.id %}"> Изменить</a>
-                        {% endif %}
-
-                        {% if perms.news.delete_post %}
-                            <a href="{% url 'post_delete' pk=post.id %}"> Удалить</a>
-                        {% endif %}
-
-               </td>
-
            </tr>
            {% endfor %}
 

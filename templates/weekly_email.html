@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Здравствуй! Посмотрите список новых статей на нашем портале за последнюю неделю, возможно Вам будет интересно!</h2>
+<ul>
+    {% for post in posts %}
+        <li><a href="{{ link }}{{ post.get_absolute_url }}">{{ post.heading }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>
