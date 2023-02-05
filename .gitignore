@@ -1,3 +1,3 @@
 .env
 *.json
-cache_files/
+cache_files/*.djcache
