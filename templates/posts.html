@@ -10,8 +10,10 @@ Posts
 
 {% block content %}
    <h1>Новостей на странице</h1>
-
-   <h3>{{ posts|length }}</h3>
+{% load cache%}
+    {% cache 30 posts %}
+        <h3>{{ posts|length }}</h3>
+    {% endcache %}
 
 <hr>
 {% if perms.news.add_post %}
@@ -68,6 +70,7 @@ Posts
    {% else %}
        <h2>Новостей нет!</h2>
    {% endif %}
+
 
 {# Информация о предыдущих страницах #}
 {% if page_obj.has_previous %}

@@ -5,9 +5,7 @@ register = template.Library()
 
 @register.filter()
 def censor(value):
-    """
-    value: значение, к которому нужно применить фильтр
-    """
+    """value: значение, к которому нужно применить фильтр."""
     filthy_list = ['редиска', 'ещеплохоеслово']
 
     if not isinstance(value, str):

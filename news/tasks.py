@@ -1,24 +1,29 @@
-from celery import shared_task
-from django.conf import settings
 import datetime
+
+from celery import shared_task
+
+from django.conf import settings
 
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from .models import PostCategory, Post, Category
+from .models import Category, Post, PostCategory
 
 # Собираем посты за последнюю неделю
 today = datetime.datetime.now()
 last_week = today - datetime.timedelta(days=7)
 posts = Post.objects.filter(datatime_of_creation__gte=last_week)
 categories = set(posts.values_list('category__name_category', flat=True))
-subscribers = set(Category.objects.filter(name_category__in=categories).values_list('subscribers__email',
-                                                                                    flat=True))
+subscribers = set(
+    Category.objects.filter(
+        name_category__in=categories
+    ).values_list('subscribers__email', flat=True)
+)
 
 
-# Еженедельная рассылка новых постов подписчикам
 @shared_task
 def send_weekly():
+    """Еженедельная рассылка новых постов подписчикам."""
     html_content = render_to_string(
         'weekly_email.html',
         {
@@ -38,9 +43,9 @@ def send_weekly():
         msg.send()
 
 
-# Рассылка информации о создании нового поста
 @shared_task
 def send_notifications(preview, heading, subscribers, pk):
+    """Рассылка информации о создании нового поста."""
     subscribers_list = PostCategory.objects.filter(post_id=pk).values_list(
         'category__subscribers__username',
         'category__subscribers__email'

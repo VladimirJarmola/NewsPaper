@@ -5,13 +5,18 @@ from .models import Post
 
 
 class PostForm(forms.ModelForm):
+    """Класс генерирует форму создания поста."""
+
     text = forms.CharField(min_length=20)
 
     class Meta:
+        """Указываем какие поля модели Post использовать."""
+
         model = Post
         fields = ['author', 'category', 'heading', 'text']
 
     def clean(self):
+        """Метод реализует проверку введенных данных."""
         cleaned_data = super().clean()
         heading = cleaned_data.get('heading')
         text = cleaned_data.get('text')
