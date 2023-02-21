@@ -53,7 +53,7 @@ class Category(models.Model):
         return f'{self.name_category}'
 
 
-class Post(models.Model):
+class Post (models.Model):
     """Модель постов."""
 
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
