@@ -1,4 +1,5 @@
 {% extends 'flatpages/default.html' %}
+{% load i18n %}
 
 {% load custom_filters %}
 
@@ -9,7 +10,7 @@ Posts
 {% endblock title %}
 
 {% block content %}
-   <h1>Новостей на странице</h1>
+   <h1>{% trans 'News per page' %}</h1>
 {% load cache%}
     {% cache 30 posts %}
         <h3>{{ posts|length }}</h3>
@@ -18,9 +19,9 @@ Posts
 <hr>
 {% if perms.news.add_post %}
     {% if posts_in_limit_period %}
-        Превышен суточный лимит постов!
+        {% trans 'Daily post limit exceeded!' %}
     {% else %}
-        <a href="{% url 'post_create'  %}"> Создать новый пост</a>
+        <a href="{% url 'post_create'  %}"> {% trans 'Create new post' %}</a>
         <hr>
     {% endif %}
 {% endif %}
@@ -28,12 +29,12 @@ Posts
 {% if posts %}
        <table>
            <tr>
-               <td>Заголовок</td>
-               <td>Дата публикации</td>
-               <td>Краткое описание</td>
-               <td>Категория</td>
+               <td>{% trans 'Header' %}</td>
+               <td>{% trans 'Publication date' %}</td>
+               <td>{% trans 'Short description' %}</td>
+               <td>{% trans 'Category' %}</td>
                <td>{% if perms.news.change_post or perms.news.delete_post %}
-                        Действие
+                     {% trans 'Action' %}
                    {% endif %}
                </td>
            </tr>
@@ -54,11 +55,11 @@ Posts
                </td>
                <td>
                         {% if perms.news.change_post %}
-                            <a href="{% url 'post_update' pk=post.id %}"> Изменить</a>
+                            <a href="{% url 'post_update' pk=post.id %}"> {% trans 'Change' %}</a>
                         {% endif %}
 
                         {% if perms.news.delete_post %}
-                            <a href="{% url 'post_delete' pk=post.id %}"> Удалить</a>
+                            <a href="{% url 'post_delete' pk=post.id %}"> {% trans 'Delete' %}</a>
                         {% endif %}
 
                </td>
@@ -68,7 +69,7 @@ Posts
 
        </table>
    {% else %}
-       <h2>Новостей нет!</h2>
+       <h2>{% trans 'News not find!' %}</h2>
    {% endif %}
 
 

@@ -1,18 +1,42 @@
 import datetime
+import pytz
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from django.core.cache import cache
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, \
-    ListView, UpdateView
+    ListView, UpdateView, View
+from django.utils import timezone
+from django.http.response import HttpResponse
 
 from .filters import PostFilter
 from .forms import PostForm
 from .models import Category, Post
+
+
+class Time(View):
+    """Класс обрабатывает установку часового пояса"""
+
+    def get(self, request):
+        """Метод добавляет в контекст все доступные часовые пояса"""
+        current_time = timezone.now()
+
+        context = {
+            'current_time': current_time,
+            'timezones': pytz.common_timezones
+        }
+
+        return HttpResponse(render(request, 'time_zone.html', context))
+
+    def post(self, request):
+        """По пост-запросу добавляем в сессию часовой пояс, который обрабатывает
+        'basic.middlewares.TimezoneMiddleware' """
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/news/time')
 
 
 class PostList(ListView):

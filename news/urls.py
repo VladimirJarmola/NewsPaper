@@ -3,7 +3,7 @@ from django.views.decorators.cache import cache_page
 
 from .views import ArticlesCreate, ArticlesDelete, ArticlesUpdate, \
    CategoryListView, PostCreate, PostDelete, PostDetail, PostList, \
-   PostSearch, PostUpdate, subscribe, unsubscribe
+   PostSearch, PostUpdate, subscribe, Time, unsubscribe
 
 
 urlpatterns = [
@@ -66,5 +66,10 @@ urlpatterns = [
       'news/categories/<int:pk>/unsubscribe',
       unsubscribe,
       name='unsubscribe'
+   ),
+   path(
+      'news/time',
+      Time.as_view(),
+      name='time'
    ),
 ]

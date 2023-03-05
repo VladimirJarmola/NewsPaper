@@ -3,6 +3,7 @@ from django.core.cache import cache
 from django.db import models
 from django.db.models import Sum
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 
 class Author(models.Model):
@@ -45,7 +46,7 @@ class Author(models.Model):
 class Category(models.Model):
     """Модель категорий постов."""
 
-    name_category = models.CharField(max_length=64, unique=True)
+    name_category = models.CharField(max_length=64, unique=True, help_text=_('category name'))
     subscribers = models.ManyToManyField(User, related_name='categories')
 
     def __str__(self):

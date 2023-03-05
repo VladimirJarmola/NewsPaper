@@ -1,6 +1,8 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
+
 {% load custom_filters %}
 
 {% block title %}
@@ -10,9 +12,9 @@ Post
 {% block content %}
  <table>
      <tr>
-         <td>Заголовок</td>
-         <td>Дата публикации</td>
-         <td>Содержание</td>
+        <td>{% trans 'Header' %}</td>
+        <td>{% trans 'Publication date' %}</td>
+        <td>{% trans 'Short description' %}</td>
      </tr>
      <tr>
          <td>{{ post.heading|censor }}</td>

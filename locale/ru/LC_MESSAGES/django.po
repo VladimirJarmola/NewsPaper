@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-05 21:09+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\news\models.py:49
+msgid "category name"
+msgstr "Название категории"
+
+#: .\templates\flatpages\default.html:10
+msgid "News Portal"
+msgstr "Новостной портал"
+
+#: .\templates\flatpages\default.html:47
+msgid "News list"
+msgstr "Список новостей"
+
+#: .\templates\flatpages\default.html:52
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\flatpages\default.html:55
+msgid "Timezone"
+msgstr "Часовой пояс"
+
+#: .\templates\post.html:15 .\templates\posts.html:32
+#: .\templates\search.html:23
+msgid "Header"
+msgstr "Заголовок"
+
+#: .\templates\post.html:16 .\templates\posts.html:33
+#: .\templates\search.html:24
+msgid "Publication date"
+msgstr "Дата публикации"
+
+#: .\templates\post.html:17 .\templates\posts.html:34
+#: .\templates\search.html:25
+msgid "Short description"
+msgstr "Краткое описание"
+
+#: .\templates\post_create.html:6
+msgid "Create news"
+msgstr "Создать новость"
+
+#: .\templates\post_create.html:11
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\templates\post_delete.html:6
+msgid "Delete news"
+msgstr "Удалить новость"
+
+#: .\templates\post_delete.html:10
+msgid "Do you really want to delete"
+msgstr "Вы действительно хотите удалить"
+
+#: .\templates\post_delete.html:11 .\templates\posts.html:62
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\posts.html:13
+msgid "News per page"
+msgstr "Новостей на странице"
+
+#: .\templates\posts.html:22
+msgid "Daily post limit exceeded!"
+msgstr "Дневной лимит постов превышен!"
+
+#: .\templates\posts.html:24
+msgid "Create new post"
+msgstr "Создать новый пост"
+
+#: .\templates\posts.html:35
+msgid "Category"
+msgstr "Категория"
+
+#: .\templates\posts.html:37
+msgid "Action"
+msgstr "Действие"
+
+#: .\templates\posts.html:58
+msgid "Change"
+msgstr "Изменить"
+
+#: .\templates\posts.html:72
+msgid "News not find!"
+msgstr "Новости не найдены!"
+
+#: .\templates\search.html:10
+msgid "News search"
+msgstr "Поиск новостей"
+
+#: .\templates\search.html:16
+msgid "Find"
+msgstr "Найти"
+
+#: .\templates\search.html:38
+msgid "News not find"
+msgstr "Новости не найдены"
+
+#: .\templates\time_zone.html:17
+msgid "Select your timezone:"
+msgstr "Выберите Ваш часовой пояс:"
+
+#: .\templates\time_zone.html:22
+msgid "Time zone"
+msgstr "Часовой пояс"

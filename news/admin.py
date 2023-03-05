@@ -1,6 +1,17 @@
 from django.contrib import admin
 from django.db.models import F
 from .models import Author, Category, Post, PostCategory, Comment
+from modeltranslation.admin import TranslationAdmin
+
+
+class CategoryAdmin(TranslationAdmin):
+    """Регистрируем модель Category для перевода"""
+    model = Category
+
+
+class PostAdmin(TranslationAdmin):
+    """Регистрируем модель Post для перевода"""
+    model = Post
 
 
 def rating_up(modeladmin, request, queryset):
