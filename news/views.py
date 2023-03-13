@@ -1,4 +1,6 @@
 import datetime
+
+import django_filters.rest_framework
 import pytz
 
 from django.contrib.auth.decorators import login_required
@@ -17,6 +19,38 @@ from .filters import PostFilter
 from .forms import PostForm
 from .models import Category, Post
 
+# =======================================================================
+from .serializers import *
+from rest_framework import viewsets, permissions
+
+
+class UserViewset(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class AuthorViewset(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class CategoryViewset(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class PostViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ['choices']
+
+
+# ======================================================================
 
 class Time(View):
     """Класс обрабатывает установку часового пояса"""

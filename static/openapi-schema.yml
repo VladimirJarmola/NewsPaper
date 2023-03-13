@@ -1,0 +1,240 @@
+openapi: 3.0.2
+info:
+  title: 'NewsPost'
+  version: '0.0.1'
+servers:
+  - url: http://127.0.0.1:8000/
+    description: Dev server
+paths:
+  /news/:
+    get:
+      summary: Метод получения списка новостей
+      tags:
+        - News
+      operationId: getAllNews
+      responses:
+        '200':
+          description: Успешный ответ со списком новостей
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/News"
+        'default':
+          description: Нестандартное поведение
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Метод создания новости
+      tags:
+        - News
+      operationId: createNews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/new"
+      responses:
+        '201':
+          description: Успешный ответ о создании новости
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/new"
+        'default':
+          description: Нестандартное поведение
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /news/{id}/:
+    get:
+      summary: Метод получения новости
+      tags:
+        - News
+      operationId: getPostByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор статьи
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешный ответ с новостью
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/new"
+        'default':
+          description: Нестандартное поведение
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Метод полной замены новости
+      tags:
+        - News
+      operationId: updatePostByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор статьи
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              properties:
+                author:
+                  oneOf:
+                    - $ref: '#/components/schemas/Author'
+                choices:
+                  default:
+                    'NW'
+                  enum:
+                    - NW
+                    - PR
+                category:
+                  default:
+                    'IT'
+                heading:
+                  maxLength: 128
+                text:
+                  type: string
+                rating:
+                  type: integer
+      responses:
+        '200':
+          description: Успешный ответ с измененной новостью
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/new"
+        'default':
+          description: Нестандартное поведение
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: Метод частичной замены новости
+      tags:
+        - News
+      operationId: updatePostByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор статьи
+          schema:
+            type: string
+      requestBody:
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              properties:
+                author:
+                  oneOf:
+                    - $ref: '#/components/schemas/Author'
+                choices:
+                  default:
+                    'NW'
+                  enum:
+                    - NW
+                    - PR
+                category:
+                  default:
+                    'IT'
+                heading:
+                  maxLength: 128
+                text:
+                  type: string
+                rating:
+                  type: integer
+      responses:
+        '200':
+          description: Успешный ответ с измененной новостью
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/new"
+        'default':
+          description: Нестандартное поведение
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Метод удаления новости
+      tags:
+        - News
+      operationId: deletePostByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор статьи
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Успешное удаление новости
+        'default':
+          description: Нестандартное поведение
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        rating:
+          type: integer
+    new:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          oneOf:
+            - $ref: '#/components/schemas/Author'
+        choices:
+          default:
+            'NW'
+          enum:
+            - NW
+            - PR
+        category:
+          default:
+            'IT'
+        heading:
+          maxLength: 128
+        text:
+          type: string
+        rating:
+          type: integer
+    News:
+      type: array
+      items:
+        $ref: "#/components/schemas/new"
+    Error:
+      type: object
+      required:
+        - code
+        - name
+      properties:
+        code:
+          type: integer
+        message:
+          type: string

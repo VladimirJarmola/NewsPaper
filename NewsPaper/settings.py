@@ -58,6 +58,8 @@ INSTALLED_APPS = [
 
     'django_apscheduler',
 
+    'rest_framework',
+
 ]
 
 SITE_ID = 1
@@ -141,7 +143,7 @@ LANGUAGES = [('en-us', 'English'), ('ru', 'Русский')]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -199,6 +201,10 @@ ADMINS = [
     ('admin', EMAIL_HOST_ADMIN + '@yandex.ru'),
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    "PAGE_SIZE": 10,
+}
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': False,
